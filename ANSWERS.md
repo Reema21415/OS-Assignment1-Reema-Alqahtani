@@ -11,7 +11,7 @@ Answer all 4 questions with detailed explanations. Each answer should be **3-5 s
 
 **Your Answer:**
 
-[Write your answer here. Consider: What is a process? What is a thread? How do they differ in terms of memory, resources, creation overhead? Why are threads more suitable for this simulation?]
+A process is an independent program in execution that has its own memory space and system resources, while a thread is a smaller unit of execution within a process that shares the same memory. Threads are lighter and faster to create compared to processes, which makes them more efficient for simulations. In this assignment, threads were used because the scheduler is implemented inside a single Java program, and each process is simulated as a thread using new Thread(process). This allows the program to manage multiple tasks without the overhead of creating separate processes. Using processes would require more system resources and inter-process communication, which is unnecessary for this simulation. Therefore, threads are more suitable for implementing Round-Robin scheduling.
 
 ---
 
@@ -21,15 +21,19 @@ Answer all 4 questions with detailed explanations. Each answer should be **3-5 s
 
 **Your Answer:**
 
-[Write your answer here. Describe the specific behavior - where does the process go? When does it run again? Give an example from your actual program output showing a process that was re-queued.]
+In Round-Robin scheduling, if a process does not finish within its time quantum, it is preempted and moved to the end of the ready queue. This ensures fairness because all processes get equal opportunities to execute. In my output, this behavior is clearly shown when a process completes its quantum but still has remaining time, and then it is re-added to the ready queue. The scheduler then continues executing the next processes in FIFO order. This cycle continues until all processes are completed. This behavior matches the Round-Robin algorithm implemented in the code.
 
 Example from my output:
 ```
-[Paste a relevant snippet from your program output here showing a process being re-queued]
+P1 executing quantum [4000ms]
+P1 completed quantum 4000ms │ Overall progress: 63%
+   Remaining time: 2348ms
+P1 yields CPU for context switch
+P1 (Priority: 5) added to ready queue
 ```
 
 **Explanation of example:**
-[Explain what's happening in the output snippet you pasted]
+In this example, process P1 executed for the full time quantum of 4000 ms but did not finish because it still had 2348 ms remaining. As a result, it was preempted and returned to the end of the ready queue. The scheduler then moved to the next process in the queue. This demonstrates how Round-Robin scheduling ensures fairness by giving each process a fixed time slice and rotating them in the queue until completion.
 
 ---
 
@@ -39,17 +43,17 @@ Example from my output:
 
 **Your Answer:**
 
-[Write your answer here. For each state, explain when P1 enters that state during the simulation. Use your understanding of the code to trace through the lifecycle.]
+The thread lifecycle in this simulation can be explained using process P1. First, P1 is in the New state when its thread is created using new Thread(process) in the addProcessToQueue method. It becomes Runnable when it is added to the ready queue and waits for the scheduler to select it. When the scheduler calls currentThread.start(), P1 enters the Running state and begins executing the run() method. The Waiting state occurs when the main thread calls currentThread.join() and waits for the current thread to finish its execution. Finally, P1 reaches the Terminated state when its remaining time becomes zero and the output shows that it finished execution.
 
-1. **New**: [When is P1 in New state?]
+1. **New**: When the thread is created using new Thread(process)
 
-2. **Runnable**: [When does P1 become Runnable?]
+2. **Runnable**: When it is added to the ready queue and waiting to be scheduled
 
-3. **Running**: [When is P1 Running?]
+3. **Running**: When currentThread.start() is called and execution begins
 
-4. **Waiting**: [When/why would P1 be Waiting?]
+4. **Waiting**: When currentThread.join() is used and the main thread waits
 
-5. **Terminated**: [When is P1 Terminated?]
+5. **Terminated**: When execution completes and remaining time becomes zero
 
 ---
 
@@ -59,31 +63,31 @@ Example from my output:
 
 **Your Answer:**
 
-### Example 1: [Name of application/scenario]
+### Example 1: Web Server Handling Requests
 
 **Description**: 
-[Describe the real-world scenario or application]
+A web server receives multiple client requests at the same time, and each request can be handled by a separate thread.
 
 **Why Round-Robin works well here**: 
-[Explain why Round-Robin scheduling is suitable. Consider fairness, responsiveness, predictability, etc.]
+Round-Robin ensures that each request gets a fair share of CPU time, preventing any single request from blocking others. This improves system responsiveness and allows multiple users to be served efficiently.
 
-### Example 2: [Name of application/scenario]
+### Example 2: Operating System CPU Scheduling
 
 **Description**: 
-[Describe the real-world scenario or application]
+Operating systems manage multiple processes running simultaneously, such as applications and background services.
 
 **Why Round-Robin works well here**: 
-[Explain why Round-Robin scheduling is suitable. Consider fairness, responsiveness, predictability, etc.]
+Round-Robin scheduling ensures fairness by giving each process a fixed time quantum. This prevents any process from monopolizing the CPU and ensures smooth performance, especially in interactive systems. In my simulation, processes rotate in the ready queue until they finish, which reflects real OS scheduling behavior.
 
 ---
 
 ## Summary
 
 **Key concepts I understood through these questions:**
-1. 
-2. 
-3. 
+1. The difference between threads and processes in terms of execution and resource usage
+2. How Round-Robin scheduling works using time quantum and context switching
+3. How threads transition between different states during execution
 
 **Concepts I need to study more:**
-1. 
-2. 
+1. Thread synchronization and shared resource management
+2. Advanced concurrency problems such as race conditions and deadlocks
