@@ -453,8 +453,8 @@ Student Name: Reema Saeed Alqahtani
 Student ID: 445052064
 GitHub Username: Reema21415
 Repository Link: https://github.com/Reema21415/OS-Assignment1-Reema-Alqahtani
-Video Link: [Google Drive link - make sure it's accessible to anyone with the link]
-Date Submitted: [Submission Date]
+Video Link: https://drive.google.com/file/d/1BQIYy_P9mhDu250ZWmQ-vHtGp6rGX_de/view?usp=sharing
+Date Submitted: April 2, 2026
 ```
 
 **Example:**
